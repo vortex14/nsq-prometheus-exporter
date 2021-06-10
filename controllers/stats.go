@@ -82,7 +82,15 @@ func getPercentile(t *Topic, percentile int) float64 {
 }
 
 func getNsqdStatsByNode(node Node) (*Stats, error) {
-	nsqdURL := fmt.Sprintf("http://%s:%d/stats?format=json", node.BroadcastAddress, node.HttpPort)
+	var nsqdURL string
+	if K8sMode {
+		nsqdURL = fmt.Sprintf("http://%s.nsq.svc.cluster.local:%d/stats?format=json", node.BroadcastAddress, node.HttpPort)
+	} else {
+		nsqdURL = fmt.Sprintf("http://%s:%d/stats?format=json", node.BroadcastAddress, node.HttpPort)
+	}
+
+	fmt.Printf(nsqdURL)
+
 	resp, err := http.Get(nsqdURL)
 	if err != nil {
 		return nil, err

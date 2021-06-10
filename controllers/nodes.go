@@ -25,6 +25,7 @@ type Nodes struct {
 
 var (
 	NsqNodes *Nodes
+	K8sMode = false
 )
 
 func init() {
@@ -32,10 +33,27 @@ func init() {
 
 }
 
-func SyncNodeList(lookupdAddrs string) {
+func SyncNodeList(lookupdAddrs string, k8smode bool) {
+	K8sMode = k8smode
 	addrList := strings.Split(lookupdAddrs, ",")
 	if len(addrList) == 0 {
 		panic("lookupdAddrs cannot be null")
+	}
+	for _, addr := range addrList {
+		nodes, err := getNodeList(addr)
+		if err == nil && nodes != nil {
+			NsqNodes = nodes
+			return
+		}
+	}
+
+	panic("cannot sync nodes list from lookupd")
+}
+
+func SyncNsqdList(nsqdAdds string) {
+	addrList := strings.Split(nsqdAdds, ",")
+	if len(addrList) == 0 {
+		panic("nsqdAddr cannot be null")
 	}
 
 	for _, addr := range addrList {

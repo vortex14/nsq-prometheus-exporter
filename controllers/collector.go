@@ -31,6 +31,7 @@ func (c *NsqCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (c *NsqCollector) Collect(ch chan<- prometheus.Metric) {
+
 	stats, err := getNsqdStats()
 	if err != nil {
 		return
