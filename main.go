@@ -3,6 +3,7 @@ package main
 import (
 	"caozhipan/nsq-prometheus-exporter/controllers"
 	"flag"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -16,6 +17,7 @@ var (
 	k8s       = flag.String("nsq.k8s.mode", "", "k8s mode")
 	k8sMode = false
 )
+
 
 func main() {
 	flag.Parse()
@@ -34,6 +36,10 @@ func main() {
 	prometheus.MustRegister(controllers.Collector)
 
 	http.Handle("/metrics", promhttp.Handler())
+	//pingHandler := ping()
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request){
+		fmt.Fprint(w, "pong")
+	})
 	log.Fatal(http.ListenAndServe(":9527", nil))
 
 }
