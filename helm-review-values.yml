@@ -32,6 +32,19 @@ readinessProbe: &readinessProbe
   timeoutSeconds: 15
   failureThreshold: 3
 
+serviceMonitors:
+  nsq-prometheus-exporter:
+    enabled: true
+    # Specify selector, if nor defined, will match to [Service] selector
+    selector:
+      matchLabels:
+        worker: exporter
+    endpoints:
+    - interval: 20s
+      port: 80
+      path: /metrics
+      scheme: http
+
 
 baseWorker: &baseWorker
   workingDir: /workspace
