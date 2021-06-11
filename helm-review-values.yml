@@ -59,3 +59,4 @@ workers:
       - ./nsq-prometheus-exporter
       - --nsq.lookupd.address=nsqlookupd.nsq.svc.cluster.local:4161
       - --nsq.k8s.mode=true
+      - --port=:80
