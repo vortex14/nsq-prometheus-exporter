@@ -52,7 +52,7 @@ baseWorker: &baseWorker
 workers:
   exporter:
     service:
-      # name: nsq-prometheus-exporter
+      name: nsq-prometheus
       externalPort: 80
     <<: *baseWorker
     command:
