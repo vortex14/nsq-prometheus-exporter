@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nsq-prometheus-exporter
-        image: whoisyourdady/nsq-prometheus-exporter:latest
+        image: vortex14/nsq-exporter:latest
         ports:
           - containerPort: 9527
             name: http
@@ -25,6 +25,7 @@ spec:
           - ./nsq-prometheus-exporter
           - -nsq.lookupd.address
           - nsqlookupd.nsq.svc.cluster.local:4161
+          - --nsq.k8s.mode=true
         resources:
           requests:
             cpu: "10m"
