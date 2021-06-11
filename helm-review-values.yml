@@ -10,9 +10,9 @@ ingress:
     enabled: true
     secretName: gotrg.dev-tls
 
-# service:
-#   internalPort: 80
-#   externalPort: 80
+service:
+  internalPort: 80
+  externalPort: 80
 
 
 livenessProbe: &livenessProbe
