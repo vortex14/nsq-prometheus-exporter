@@ -10,9 +10,9 @@ ingress:
     enabled: true
     secretName: gotrg.dev-tls
 
-service:
-  internalPort: 80
-  externalPort: 80
+# service:
+#   internalPort: 80
+#   externalPort: 80
 
 
 livenessProbe: &livenessProbe
@@ -52,7 +52,7 @@ baseWorker: &baseWorker
 workers:
   exporter:
     service:
-      name: nsq-prometheus-exporter
+      # name: nsq-prometheus-exporter
       externalPort: 80
     <<: *baseWorker
     command:
