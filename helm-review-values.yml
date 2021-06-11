@@ -40,10 +40,10 @@ serviceMonitors:
       matchLabels:
         worker: exporter
     endpoints:
-    - interval: 20s
-      port: 80
-      path: /metrics
-      scheme: http
+      - interval: 20s
+        port: "80"
+        path: /metrics
+        scheme: http
 
 
 baseWorker: &baseWorker
